@@ -16,7 +16,7 @@ users_info = db.users_info        # use users_info 用户信息集合
 
 class MainHandler(RequestHandler):
     """
-    首页渲染
+    欢迎页渲染
     """
     def get(self):
         self.write("Welcome to LuckyDraw!")
@@ -24,6 +24,15 @@ class MainHandler(RequestHandler):
     def post(self):
         pass
 
+class HomeHandler(RequestHandler):
+    """
+    主页渲染
+    """
+    def get(self):
+        self.write("待定，选择用户操作")
+
+    def post(self):
+        pass
 
 class RegisterHandler(RequestHandler):
     """
@@ -38,10 +47,10 @@ class RegisterHandler(RequestHandler):
                   2   -> login_name重复
                   3   -> nick_name重复
                   4   -> 填写信息不全
-                  -1  -> 未知错误
+                  -1  -> 服务器异常
     """
     def get(self):
-        self.write('../templates/register.html')
+        self.render('../templates/register.html')
 
     def post(self):
         ret_dict = {'code':0}
@@ -85,13 +94,13 @@ class LoginHandler(RequestHandler):
         2.output:1   ->登陆成功
                  2   ->没有该用户
                  3   ->密码错误
-                 -1  ->未知错误
+                 -1  ->服务器异常
     """
     def get(self):
         self.render('../templates/login.html')
 
     def post(self):
-        ret_dict = {'code'：0}
+        ret_dict = {'code':0}
         login_name = self.get_argument('login_name', '')
         login_pass = self.get_argument('login_pass', '')
         login_name_result, login_pass_result,_ = user_info_search(login_name=login_name, login_pass=login_pass)

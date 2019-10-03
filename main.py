@@ -1,7 +1,7 @@
 import os
 import tornado.ioloop
 import tornado.web
-
+from backend.Handlers import MainHandler,RegisterHandler,LoginHandler
 def make_app():
     setting = dict(
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -11,7 +11,8 @@ def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
         (r"/register", RegisterHandler),
-        (r"/login", LoginHandler)
+        (r"/login", LoginHandler),
+        (r"/home", HomeHandler)
     ], **setting)
 
 

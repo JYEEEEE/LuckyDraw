@@ -5,6 +5,38 @@
     <title>Register</title>
 </head>
 <body>
-
+账号<input type="text" id="login_name"><br>
+密码<input type="text" id="login_pass"><br>
+昵称<input type="text" id="nick_name"><br>
+<input type="submit" id="submit" value="注册">
 </body>
+<script src="../static/js/base_utils.js"></script>
+<script src="../static/js/jquery-1.10.2.js"></script>
+<script src="../static/js/jquery.cookie.js"></script>
+<script>
+    $(function() {
+        $("#submit").on('click', function() {
+            console.log('click')
+            var data = {
+                'login_name': $("#login_name").val(),
+                'login_pass': $("#login_pass").val(),
+                'nick_name': $("#nick_name").val()
+            }
+            ajaxPost('/register', data, function(ret) {
+                if (ret.code === 1) {
+                    alert('注册成功');
+                    window.location.href = '/home'
+                } else if (ret.code === 2){
+                    alert('该账号名已被注册')
+                } else if (ret.code === 3) {
+                    alert('该昵称已被使用')
+                } else if (ret.code === 4) {
+                    alert('信息填写不全')
+                } else {
+                    alert('服务器异常！')
+                }
+            })
+        })
+    })
+</script>
 </html>
