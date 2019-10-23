@@ -24,6 +24,10 @@ class BaseModel(object):
         return mongo_dict
 
     @classmethod
+    def get_fields(cls):
+        return filter(lambda x: not x.startswith('_'), cls.__dict__)
+
+    @classmethod
     def get_collection(cls):
         """
         获取表
@@ -33,11 +37,27 @@ class BaseModel(object):
 
     @classmethod
     def find_one(cls, query):
-        return cls.get_collection().find_one(query)
+        result = cls.get_collection().find_one(query)
+        if not result:
+            return result
+
+        clazz = cls()
+        for k in cls.get_fields():
+            setattr(clazz, k, result.get(k))
+        return clazz
 
     @classmethod
     def find(cls, query):
-        return cls.get_collection().find(query)
+        results = cls.get_collection().find(query)
+
+        clazz_list = []
+        for ret in results:
+            clazz = cls()
+            for k in cls.get_fields():
+                setattr(clazz, k, ret.get(k))
+            clazz_list.append(clazz)
+
+        return clazz_list
 
     def save(self):
         mongo_dict = self.to_mongo()

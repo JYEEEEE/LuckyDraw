@@ -17,15 +17,26 @@ def test_to_mongo():
 
 
 def test_find_one():
-    print(User.find_one({'login_name': 'test'}))
+    ret = User.find_one({'login_name': 'test3'})
+    print(ret)
+    print(ret.login_name)
+
+
+def test_find():
+    u_list = User.find({'login_name': None})
+    print(u_list)
+    for u in u_list:
+        print('user:', u)
+        print('user.login_name: ', u.login_name)
+        print('user.to_mongo:', u.to_mongo())
 
 
 def test_save():
     user = User()
-    user.login_name = 'test'
-    user.login_pass = 'test'
+    user.login_name = 'test3'
+    user.login_pass = 'test3'
     print(user.save())
 
 
-test_find_one()
+test_find()
 # test_save()
