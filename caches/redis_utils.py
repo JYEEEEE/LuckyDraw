@@ -8,7 +8,7 @@ import settings
 
 
 class RedisDB(object):
-    __redis_cluster = None
+    _instance = None
 
     def __init__(self):
         pass
