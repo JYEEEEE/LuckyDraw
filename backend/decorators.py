@@ -9,6 +9,11 @@ import json
 
 
 def render_json(func):
+    """
+    仅用于装饰post请求
+    :param func:
+    :return:
+    """
     def wrapper(self, *args, **kwargs):
         data = func(self, *args, **kwargs)
         if not isinstance(data, dict):
