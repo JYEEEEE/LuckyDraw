@@ -3,14 +3,14 @@ import os
 import tornado.ioloop
 import tornado.web
 
-from backend.auth import LoginHandler
-from backend.index import MainHandler, RegisterHandler
+from backend.auth import LoginHandler, RegisterHandler
+from backend.index import MainHandler
 
 
 def make_app():
     setting = dict(
-        template_path=os.path.join(os.path.dirname(__file__), "templates"),
-        static_path=os.path.join(os.path.dirname(__file__), "static"),
+        template_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates"),
+        static_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), "static"),
     )
 
     return tornado.web.Application([

@@ -1,10 +1,11 @@
 #! /usr/bin/python
 
 """
-@author: yan.zhao
-@contact: yan.zhao@idiaoyan.com
-@time: 2019/10/26 10:33
+@author: jyeeee
+@contact: 807806181@qq.com
+@time: 2019/12/2 14:25
 """
+import json
 import traceback
 
 from tornado.web import RequestHandler
@@ -56,4 +57,34 @@ class LoginHandler(RequestHandler):
             print(traceback.format_exc())  # 打印出错时的异常栈信息
             ret_dict['code'] = -1
 
+        return ret_dict
+
+
+class RegisterHandler(RequestHandler):
+    """
+    用户注册
+    """
+
+    def get(self):
+        self.render('../templates/register.html')
+
+    @render_json
+    def post(self):
+        ret_dict = {'code': 0}
+        login_name = self.get_argument('login_name', '')
+        login_pass = self.get_argument('login_pass', '')
+
+        if not login_name or not login_pass:
+            ret_dict = {'code': 4}
+            return ret_dict
+
+        user = User.find_one(dict(login_name=login_name))
+        if not user:
+            user = User()
+            user.login_name = login_name
+            user.login_pass = md5(login_pass)
+            user.save()
+            ret_dict['code'] = 1
+        else:
+            ret_dict['code'] = 2
         return ret_dict
