@@ -49,7 +49,7 @@ class LoginHandler(RequestHandler):
                 return ret_dict
 
             # tips: 密码通常不会明文保存在数据库中
-            if md5(login_pass) == login_pass:
+            if md5(login_pass) == user.login_pass:
                 ret_dict['code'] = 1
             else:
                 ret_dict['code'] = -3

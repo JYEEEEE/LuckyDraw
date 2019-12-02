@@ -5,9 +5,9 @@
     <title>Login</title>
 </head>
 <body>
-账号<input type="text"><br>
-密码<input type="text"><br>
-<input type="submit" value="登录">
+账号: <input id="login_name" type="text"><br>
+密码: <input id="login_pass" type="text"><br>
+<input id="login" type="submit" value="登录">
 <button id="register">注册</button>
 </body>
 <script src="{{ static_url('js/base_utils.js') }}"></script>
@@ -15,13 +15,14 @@
 <script src="{{ static_url('js/jquery.cookie.js')}}"></script>
 <script>
     $(function () {
-        $("#submit").on('click', function () {
+        $("#login").on('click', function () {
             console.log('click');
             var data = {
                 'login_name': $("#login_name").val(),
                 'login_pass': $("#login_pass").val()
             };
-            ajaxPost('/register', data, function (ret) {
+            ajaxPost('/login', data, function (ret) {
+                console.log(ret)
                 if (ret.code === 1) {
                     alert('登录成功');
                     window.location.href = '/home'
