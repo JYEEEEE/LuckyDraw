@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>抽奖规则列表页</title>
+</head>
+<body>
+<button id="add_rule">新增抽奖规则</button>
+<table>
+<tbody>
+<tr>
+    <th width="40"></th>
+    <th>抽题规则名称</th>
+    <th>抽题设置</th>
+    <th>备注</th>
+    <th>操作</th>
+</tr>
+{% if rules %}
+    {% for index, rule in enumerate(rules) %}
+    <tr>
+        <td>{{ index + 1 }}</td>
+        <td>{{ choice_rule.title }}</td>
+        <td></td>
+        <td>备注test</td>
+        <td></td>
+    </tr>
+    {% end %}
+{% else %}
+<tr>
+    <td colspan="8" align="center">没有相关记录！</td>
+</tr>
+{% end %}
+</tbody>
+</table>
+</body>
+</html>

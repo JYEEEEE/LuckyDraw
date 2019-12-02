@@ -5,6 +5,7 @@ import tornado.web
 
 from backend.auth import LoginHandler, RegisterHandler
 from backend.index import MainHandler
+from backend.rule import RuleListHandler
 
 
 def make_app():
@@ -17,6 +18,7 @@ def make_app():
         (r"/", MainHandler),
         (r"/register", RegisterHandler),
         (r"/login", LoginHandler),
+        (r"/rule/list", RuleListHandler)
     ], **setting)
 
 

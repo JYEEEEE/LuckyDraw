@@ -70,3 +70,7 @@ class User(BaseModel):
     """
     login_name: str = None
     login_pass: str = None
+
+
+class Rule(BaseModel):
+    name: str = ""
