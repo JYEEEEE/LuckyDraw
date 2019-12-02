@@ -3,8 +3,8 @@ import os
 import tornado.ioloop
 import tornado.web
 
-from backend.Handlers import MainHandler, RegisterHandler
 from backend.auth import LoginHandler
+from backend.index import MainHandler, RegisterHandler
 
 
 def make_app():
