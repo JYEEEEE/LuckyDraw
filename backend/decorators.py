@@ -14,6 +14,7 @@ def render_json(func):
     :param func:
     :return:
     """
+
     def wrapper(self, *args, **kwargs):
         data = func(self, *args, **kwargs)
         if not isinstance(data, dict):
@@ -23,3 +24,24 @@ def render_json(func):
         self.write(json.dumps(data))
 
     return wrapper
+
+
+def render_template(template_path):
+    """
+
+    :param template_path:
+    :return:
+    """
+
+    def deco(func):
+        def wrapper(self, *args, **kwargs):
+            data = func(self, *args, **kwargs)
+            if not isinstance(data, dict):
+                return data
+            if 'self' in data.keys():
+                del data['self']
+            self.render(template_path, **data)
+
+        return wrapper
+
+    return deco

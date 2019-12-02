@@ -5,12 +5,11 @@
 @contact: 807806181@qq.com
 @time: 2019/12/2 14:25
 """
-import json
 import traceback
 
 from tornado.web import RequestHandler
 
-from backend.decorators import render_json
+from backend.decorators import render_json, render_template
 from database.models import User
 from utils import md5
 
@@ -26,8 +25,9 @@ class LoginHandler(RequestHandler):
                  -1  ->服务器异常
     """
 
+    @render_template("login.html")
     def get(self):
-        self.render('../templates/login.html')
+        return {}
 
     @render_json
     def post(self):
@@ -65,8 +65,9 @@ class RegisterHandler(RequestHandler):
     用户注册
     """
 
+    @render_template("register.html")
     def get(self):
-        self.render('../templates/register.html')
+        return {}
 
     @render_json
     def post(self):
