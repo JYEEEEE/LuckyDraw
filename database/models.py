@@ -74,3 +74,4 @@ class User(BaseModel):
 
 class Rule(BaseModel):
     name: str = ""
+    comment: str = ""

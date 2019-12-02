@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增抽奖规则</title>
+</head>
+<body>
+<form id="form_add" name="form_add" method="post" action="/rule/add">
+    <table class="table_form">
+        <tbody>
+        <tr>
+            <th width="40%"><span class="necessary">*</span>抽题规则名称</th>
+            <td><input id="name" name="name" class="input_text" type="text" maxlength="256"></td>
+        </tr>
+        <tr>
+            <th class="vt pt10">备注</th>
+            <td>
+                <textarea id="comment" name="comment" class="textarea"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <span id="error_msg" class="cl_danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <a href="javascript:" id="submit" class="btn btn_primary btn_lg mt10">提交</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+<script src="{{ static_url('js/base_utils.js') }}"></script>
+<script src="{{ static_url('js/jquery-1.10.2.js') }}"></script>
+<script src="{{ static_url('js/jquery.cookie.js')}}"></script>
+<script src="{{ static_url('js/jquery.form.js') }}"></script>
+<script>
+    $("#form_add").ajaxForm({
+        success: function (data) {
+            if (data.code === 0) {
+                alert("添加规则失败，请重试！");
+            } else if (data.code === 1) {
+                alert("规则添加成功！");
+                window.location.href = "/rule/list";
+            } else if (data.code === 2) {
+                $("#error_msg").html("请输入抽题规则名称！");
+            } else if (data.code === 3) {
+                $("#error_msg").html("抽题规则编号已存在！");
+            }
+        },
+        error: function () {
+            $("#error_msg").html("操作失败，请重试！");
+            return false;
+        },
+        resetForm: false,
+        dataType: 'json'
+    });
+
+    $("#submit").click(function () {
+        $("#form_add").submit();
+    });
+</script>
+</html>

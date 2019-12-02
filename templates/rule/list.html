@@ -19,9 +19,9 @@
     {% for index, rule in enumerate(rules) %}
     <tr>
         <td>{{ index + 1 }}</td>
-        <td>{{ choice_rule.title }}</td>
+        <td>{{ rule.name }}</td>
         <td></td>
-        <td>备注test</td>
+        <td>{{ rule.comment }}</td>
         <td></td>
     </tr>
     {% end %}
@@ -33,4 +33,12 @@
     </tbody>
 </table>
 </body>
+<script src="{{ static_url('js/base_utils.js') }}"></script>
+<script src="{{ static_url('js/jquery-1.10.2.js') }}"></script>
+<script src="{{ static_url('js/jquery.cookie.js')}}"></script>
+<script>
+    $("#add_rule").on("click", function () {
+        window.location.href = "/rule/add"
+    })
+</script>
 </html>
