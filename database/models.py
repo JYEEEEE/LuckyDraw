@@ -24,7 +24,7 @@ class BaseModel(object):
                 if not v:
                     # 如果没有给定_id,那么由数据库自动生成
                     continue
-                mongo_dict[k] = v
+            mongo_dict[k] = v
         return mongo_dict
 
     @classmethod
@@ -69,7 +69,7 @@ class BaseModel(object):
             _id = mongo_dict.pop('_id')
             if not isinstance(_id, ObjectId):
                 _id = ObjectId(_id)
-            return self.get_collection().update_one({'_id': _id}, mongo_dict, upsert=True)
+            return self.get_collection().update_one({'_id': _id}, {'$set': mongo_dict}, upsert=True)
         else:
             return self.get_collection().insert_one(mongo_dict)
 
