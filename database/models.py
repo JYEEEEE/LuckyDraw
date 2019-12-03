@@ -52,6 +52,11 @@ class BaseModel(object):
 
     @classmethod
     def find(cls, query):
+        """
+        查询
+        :param query:
+        :return:
+        """
         results = cls.get_collection().find(query)
 
         clazz_list = []
@@ -64,6 +69,10 @@ class BaseModel(object):
         return clazz_list
 
     def save(self):
+        """
+        保存文档
+        :return:
+        """
         mongo_dict = self.to_mongo()
         if '_id' in mongo_dict:
             _id = mongo_dict.pop('_id')
@@ -72,6 +81,13 @@ class BaseModel(object):
             return self.get_collection().update_one({'_id': _id}, {'$set': mongo_dict}, upsert=True)
         else:
             return self.get_collection().insert_one(mongo_dict)
+
+    def delete(self):
+        """
+        删除文档自身
+        :return:
+        """
+        return self.get_collection().delete_one(self.to_mongo())
 
 
 class User(BaseModel):
