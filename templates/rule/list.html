@@ -22,7 +22,9 @@
         <td>{{ rule.name }}</td>
         <td></td>
         <td>{{ rule.comment }}</td>
-        <td></td>
+        <td>
+            <button id="edit" value="{{ rule._id }}">编辑</button>
+        </td>
     </tr>
     {% end %}
     {% else %}
@@ -39,6 +41,10 @@
 <script>
     $("#add_rule").on("click", function () {
         window.location.href = "/rule/add"
+    });
+
+    $("#edit").on("click", function () {
+        window.location.href = "/rule/edit?id=" + $(this).val()
     })
 </script>
 </html>

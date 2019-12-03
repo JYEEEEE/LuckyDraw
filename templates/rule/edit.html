@@ -10,12 +10,12 @@
         <tbody>
         <tr>
             <th width="40%"><span class="necessary">*</span>抽题规则名称</th>
-            <td><input id="name" name="name" class="input_text" type="text" maxlength="256"></td>
+            <td><input id="name" name="name" class="input_text" type="text" maxlength="256" value="{{ rule.name }}"></td>
         </tr>
         <tr>
             <th class="vt pt10">备注</th>
             <td>
-                <textarea id="comment" name="comment" class="textarea"></textarea>
+                <textarea id="comment" name="comment" class="textarea">{{ rule.comment }}</textarea>
             </td>
         </tr>
         <tr>
@@ -47,9 +47,9 @@
                 alert("规则添加成功！");
                 window.location.href = "/rule/list";
             } else if (data.code === 2) {
-                $("#error_msg").html("请输入规则名称！");
+                $("#error_msg").html("请输入抽题规则名称！");
             } else if (data.code === 3) {
-                $("#error_msg").html("规则已存在！");
+                $("#error_msg").html("规则不存在！");
             }
         },
         error: function () {
