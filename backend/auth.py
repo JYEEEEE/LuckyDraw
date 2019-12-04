@@ -10,6 +10,7 @@ import traceback
 from tornado.web import RequestHandler
 
 from backend.decorators import render_json, render_template
+from caches.redis_utils import RedisCache
 from database.models import User
 from utils import md5
 
@@ -52,7 +53,23 @@ class LoginHandler(RequestHandler):
             if md5(login_pass) == user.login_pass:
                 ret_dict['code'] = 1
             else:
-                ret_dict['code'] = -3
+                key = 'login_fail_limit' + str(user._id)
+                count = RedisCache.get(key)
+                if count:
+                    if isinstance(count, bytes):
+                        count = count.decode('utf-8')
+                    if isinstance(count, str):
+                        count = int(count)
+                else:
+                    count = 0
+
+                # 设置
+                count += 1
+                RedisCache.set(key, count, 5 * 60)
+                if count >= 3:
+                    ret_dict['code'] = -4
+                else:
+                    ret_dict['code'] = -3
         except Exception:
             print(traceback.format_exc())  # 打印出错时的异常栈信息
             ret_dict['code'] = -1
